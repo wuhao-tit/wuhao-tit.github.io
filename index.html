@@ -149,7 +149,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://wuhao-tit.github.io/2020/09/25/article-title/">
+    <link itemprop="mainEntityOfPage" href="https://wuhao-tit.github.io/2020/09/25/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E5%AD%90%E6%B3%95(Lagrange%20Multiplier)%E5%92%8CKKT(Karush%20Kuhn%20Tucker)%E6%9D%A1%E4%BB%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -163,7 +163,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/25/article-title/" class="post-title-link" itemprop="url">拉格朗日乘子法(Lagrange Multiplier)和KKT(Karush Kuhn Tucker)条件</a>
+            <a href="/2020/09/25/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E5%AD%90%E6%B3%95(Lagrange%20Multiplier)%E5%92%8CKKT(Karush%20Kuhn%20Tucker)%E6%9D%A1%E4%BB%B6/" class="post-title-link" itemprop="url">拉格朗日乘子法(Lagrange Multiplier)和KKT(Karush Kuhn Tucker)条件</a>
         </h2>
 
         <div class="post-meta">
@@ -180,7 +180,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-26 19:55:23" itemprop="dateModified" datetime="2020-09-26T19:55:23+09:00">2020-09-26</time>
+                <time title="修改时间：2020-09-26 20:51:06" itemprop="dateModified" datetime="2020-09-26T20:51:06+09:00">2020-09-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -188,7 +188,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/computational-material-science/" itemprop="url" rel="index"><span itemprop="name">computational material science</span></a>
+                  <a href="/categories/Computational-Material-Science/" itemprop="url" rel="index"><span itemprop="name">Computational Material Science</span></a>
                 </span>
             </span>
 
@@ -220,9 +220,13 @@
           <p>　　在求解最优化问题中，拉格朗日乘子法（Lagrange Multiplier）和KKT（Karush Kuhn Tucker）条件是两种最常用的方法。在有等式约束时使用拉格朗日乘子法，在有不等约束时使用KKT条件。</p>
 <p>　　我们这里提到的最优化问题通常是指对于给定的某一函数，求其在指定作用域上的全局最小值(因为最小值与最大值可以很容易转化，即最大值问题可以转化成最小值问题)。提到KKT条件一般会附带的提一下拉格朗日乘子。对学过高等数学的人来说比较拉格朗日乘子应该会有些印象。二者均是求解最优化问题的方法，不同之处在于应用的情形不同。</p>
 <p>　　一般情况下，最优化问题会碰到一下三种情况：</p>
-<p>（1）无约束条件</p>
+<ol>
+<li>无约束条件</li>
+</ol>
 <p>　　这是最简单的情况，解决方法通常是函数对变量求导，令求导函数等于0的点可能是极值点。将结果带回原函数进行验证即可。</p>
-<p>（2）等式约束条件</p>
+<ol start="2">
+<li>等式约束条件</li>
+</ol>
 <p>　　设目标函数为f(x)，约束条件为h_k(x)，形如:</p>
 <p>　　s.t. 表示subject to ，“受限于”的意思，l表示有l个约束条件。</p>
 <p><img src="https://raw.githubusercontent.com/wuhao-tit/PictureBed/master/Lagrange%20multiplyer%20(1).png"></p>
@@ -247,7 +251,7 @@
 <p>至于为什么这么做可以求解最优化？维基百科上给出了一个比较好的直观解释。</p>
 <p>　　举个二维最优化的例子：</p>
 <p>　　　　min f(x,y)    </p>
-<p>　　　　s.t. g(x,y) = c</p>
+<p>　　　　　　s.t. g(x,y) = c</p>
 <p>　　这里画出z=f(x,y)的等高线（函数登高线定义见百度百科）：</p>
 <p><img src="http://raw.githubusercontent.com/wuhao-tit/PictureBed/master/imgLagrange%20multiplyer%20(11).png"></p>
 <p>　　绿线标出的是约束g(x,y)=c的点的轨迹。蓝线是f(x,y)的等高线。箭头表示斜率，和等高线的法线平行。从梯度的方向上来看，显然有d1&gt;d2。绿色的线是约束，也就是说，只要正好落在这条绿线上的点才可能是满足要求的点。如果没有这条约束，f(x,y)的最小值应该会落在最小那圈等高线内部的某一点上。而现在加上了约束，最小值点应该在哪里呢？显然应该是在f(x,y)的等高线正好和约束线相切的位置，因为如果只是相交意味着肯定还存在其它的等高线在该条等高线的内部或者外部，使得新的等高线与目标函数的交点的值更大或者更小，只有到等高线与目标函数的曲线相切的时候，可能取得最优值。</p>
@@ -257,7 +261,9 @@
 <p>　　那么拉格朗日函数： F(x,y)=f(x,y)+λ(g(x,y)−c) 在达到极值时与f(x,y)相等，因为F(x,y)达到极值时g(x,y)−c总等于零。</p>
 <p>　　min( F(x,λ) )取得极小值时其导数为0，即▽f(x)+▽∑ni=λihi(x)=0，也就是说f(x)和h(x)的梯度共线。</p>
 <p>　　简单的说，在F(x,λ)取得最优化解的时候，即F(x,λ)取极值（导数为0，▽[f(x,y)+λ(g(x,y)−c)]=0）的时候，f(x)与g(x) 梯度共线，此时就是在条件约束g(x)下，f(x)的最优化解。</p>
-<p>（3）不等式约束条件</p>
+<ol start="3">
+<li>不等式约束条件</li>
+</ol>
 <p>　　设目标函数f(x)，不等式约束为g(x)，有的教程还会添加上等式约束条件h(x)。此时的约束优化问题描述如下：</p>
 <p><img src="http://raw.githubusercontent.com/wuhao-tit/PictureBed/master/imgLagrange%20multiplyer%20(13).png"></p>
 <p>　　则我们定义不等式约束下的拉格朗日函数L，则L表达式为：</p>
@@ -363,12 +369,14 @@
         </a>
       </div>
       <div class="site-state-item site-state-categories">
+            <a href="/categories/">
         <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">分类</span>
+        <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">标签</span>
+            <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
