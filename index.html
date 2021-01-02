@@ -149,6 +149,279 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wuhao-tit.github.io/2020/12/31/CAE%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%EF%BC%9A%E5%8A%9B%E5%AD%A6%E6%B1%87%E6%80%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="WuHao">
+      <meta itemprop="description" content="Jediism">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WuHao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/31/CAE%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%EF%BC%9A%E5%8A%9B%E5%AD%A6%E6%B1%87%E6%80%BB/" class="post-title-link" itemprop="url">CAE工程师的成长之路：材料力学</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-31 04:27:53" itemprop="dateCreated datePublished" datetime="2020-12-31T04:27:53+09:00">2020-12-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-01 13:29:27" itemprop="dateModified" datetime="2021-01-01T13:29:27+09:00">2021-01-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%90%E6%96%99%E5%8A%9B%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">材料力学</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%90%E6%96%99%E5%8A%9B%E5%AD%A6/%E7%90%86%E8%AE%BA%E5%8A%9B%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">理论力学</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%90%E6%96%99%E5%8A%9B%E5%AD%A6/%E7%90%86%E8%AE%BA%E5%8A%9B%E5%AD%A6/%E5%BC%B9%E6%80%A7%E5%8A%9B%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">弹性力学</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　</p>
+<p>　　理论力学</p>
+<pre><code>静力学部分：
+
+一、静力学公式和物体受力分析
+
+五个公式及两个推理：
+1.力的平行四边形规则  F1+F2=F
+2.二力平衡充要条件   F1=-F2
+3.加减平衡力系原理   任意加减力系不改变对刚体作用  
+    推论1：力的可传导性
+    推论2：三力平衡汇交定理: 若两个里作用线汇于一点，三力一定在同一平面，且第三个力作用线通过汇交点。
+4.作用力与反作用力
+5.刚化原理    平衡下变形体刚化，平衡状态不变
+
+约束：对非自由体某些位移起限制作用的周围物体
+约束反力：约束对物体的作用，方向与约束能够阻碍的位移方向相反
+
+常见的几种约束：光滑面，绳、链胶带，光滑铰链
+
+受力分析和受力图(二力杆)
+
+二、平面力系
+
+平面汇交力系：
+平面汇交力系可以简化为合力，大小方向为各合力的和F1+F2+...+Fn=Fi
+其平衡必要充分条件：Fi=0；几何条件：力系的力多边形自行封闭；解析条件：各力在三个相互平行的坐标轴投影的代数和分别等于零
+
+力矩，力偶，力偶矩，合成与平衡
+力矩：M=FL,逆时针为正
+合力矩：平面汇交力系的合力对于平面内任一点之力矩等于所有各分力对于该点之矩的代数和。
+力偶：等值反向不共线的平行力组成的力系，力偶没有合力，也不能用一个力来平衡。
+
+力的平移定理，合力矩定理
+平移：刚体上A点平移倒B点，必须同时附加个力偶，力偶矩等于原来的力F对B点的矩
+合力矩定理：平面任意力系的合理对作用面内任一点的矩等于力系中各力对同一点的矩的代数和。
+
+平面任意力系的平衡条件和平衡方程
+FR=0,Mo=0
+
+物体系的平衡
+主矢和主矩等于零：Xi=0,Yi=0,Mo=0
+
+平面桁架内力的计算：节点法，截面法
+桁架是一种杆件彼此在两端用铰链连接而成的结构，它在受力后几何形状不变。
+节点法：逐个考虑桁架中所有节点的平衡，应用平面汇交力系的平衡方程求出各个杆件的内力。
+截面法：截断待求内力的杆件，将桁架切割为两部分，取其中一部分为研究对象，应用平面任意力系的平衡方程求出被切割杆件的内力。
+
+三、空间力系
+
+空间汇交力系
+
+力对点的矩，力对轴的矩
+
+空间力偶
+
+空间任意力系(主矢，主矩)，平衡方程</code></pre>
+<p>　　材料力学</p>
+<pre><code>变形固体基本假设：连续性假设；各向同性假设；小变形假设
+拉压杆的斜截面上既有正应力也有切应力,当45度时候切应力最大    τmax=σ/2
+应力集中：由于截面急剧变化引起的应力局部增大现象，称为应力集中</code></pre>
+<p>　　弹性力学</p>
+<pre><code>理想弹性体：连续性，完全弹性，均匀性，各向异性四个假定
+弹性力学三大规律：变形连续规律、应力-应变关系和运动(或平衡)规律
+应力：单位ML-1T-2,方向延坐标轴正面上正向为正，负面负向为负
+
+圣维南原理：如果把物体的一小部分边界上的面力，变换为分布不同但静力等效的面力（主矢量相同，对同一点的主矩也相同），那么，近处的应力分量将有显著的改变，但远处所受的影响可以不计。
+圣维南原理表明：在小边界上进行面力的静力等效变换后，只影响近处（局部区域）的应力，对绝大部分弹性体区域的应力没有明显影响。</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wuhao-tit.github.io/2020/12/18/%E6%89%BE%E5%B7%A5%E4%BD%9C%E7%AE%80%E5%8E%86%E7%BB%8F%E9%AA%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="WuHao">
+      <meta itemprop="description" content="Jediism">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WuHao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/18/%E6%89%BE%E5%B7%A5%E4%BD%9C%E7%AE%80%E5%8E%86%E7%BB%8F%E9%AA%8C/" class="post-title-link" itemprop="url">如何简历</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-12-18 02:56:49 / 修改时间：03:34:40" itemprop="dateCreated datePublished" datetime="2020-12-18T02:56:49+09:00">2020-12-18</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>975</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　最基本要求：</p>
+<p>　　1.控制在单面,一页, 可以通过字号(10,10.5)，行距行间距，段间距，页边距</p>
+<p>　　2.absolutely, no typo… find a native speaker</p>
+<p>　　3.排版整洁，重点突出，(google resume templates) (专业词汇：专业+resume samples)</p>
+<p>　　4.联系方式(tel+mail)</p>
+<p>　　简历找谁改：</p>
+<p>　　1.看整体：任何人 找人改：10秒钟，抓住两个信息，求职职位！！！特色是什么！！！recruiter 只会抓两个信息：技能突不突出，职位匹配不匹配！！！ straightforward</p>
+<p>　　2.逐字逐句：从业人士</p>
+<p>　　3.学校资源：Career Center</p>
+<p>　　4.免费的咨询资源</p>
+<p>　　要改多少遍：</p>
+<p>　　1.一直改一直更新</p>
+<p>　　检验简历合格唯一标准：拿到意向公司offer,稳定拿到越来越多公司offer</p>
+<p>　　2.不要等，尽早投，直到得到recruiter</p>
+<p>　　各板块具体建议：</p>
+<p>　　1.姓名(电话邮箱)， 公司会根据名字，邮箱电话筛选人，surname and lastname 可以换</p>
+<p>　　2.linkedIn/ Github链接(如果加分)</p>
+<p>　　3.skills   职业从最熟到最不熟，最重要到最不重要</p>
+<p>　　4.学历  突出跟申请职位相关的实习/课程</p>
+<p>　　5.工作经历 实习/coop &gt; Teaching/Research Assistant &gt; Academic Projects</p>
+<p>　　6.学术项目 一定要是一个Final project， individual contributer/ team player</p>
+<p>　　7. Objective summary,一道两句话，一行，不超过两行</p>
+<p>　　板块顺序：</p>
+<p>　　1.想让别人最先看到什么(名校，大公司实习，技能)eg.编程语言</p>
+<p>　　2.应届生学历放上半页(先放最近的学历，除非跳槽)</p>
+<p>　　3.工作经历放学校项目前面</p>
+<p>　　4.学术经历，牛逼放前面</p>
+<p>　　语言技巧：</p>
+<p>　　1.尽量用数字量化成就(估)</p>
+<p>　　2.Easy-to-read:精简语言</p>
+<p>　　3.不同职位准备不同简历,准备多分简历</p>
+<p>　　4.Be confident in what you did</p>
+<p>　　small tips: 有専門resume paper,网购</p>
+<p>　　哪里找投简历：</p>
+<p>　　1.直接找Recruiter投</p>
+<p>　　2.找内推referral</p>
+<p>　　3.学校内部招聘网University job Board</p>
+<p>　　4.handshake.com,学校会与joinhandshake.com合作，其他网站Indeed,Mosnter, LinkedIn，海投</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://wuhao-tit.github.io/2020/12/11/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E8%AF%BE%E9%A2%98%E7%A0%94%E7%A9%B6%E6%88%90%E6%9E%9C%E5%86%85%E5%AE%B9%E7%AE%80%E4%BB%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -440,7 +713,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-03 00:47:18" itemprop="dateModified" datetime="2020-10-03T00:47:18+09:00">2020-10-03</time>
+                <time title="修改时间：2021-01-01 00:50:43" itemprop="dateModified" datetime="2021-01-01T00:50:43+09:00">2021-01-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -458,7 +731,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>131</span>
+              <span>273</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -477,17 +750,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>　　成都：</p>
+          <p>　　東京</p>
+<p>　　</p>
+<p>　　成都：</p>
 <pre><code>洞子口陈凉粉  洞子口福德路42号，经典川菜基本上都可以，凉拌鸡，锅巴肉片，肝腰合炒
 
-荣园餐厅  武侯区蜀汉路10号附2号，瓦罐汤，炒藤藤菜</code></pre>
+荣园餐厅  武侯区蜀汉路10号附2号，瓦罐汤，炒藤藤菜
+
+上池面馆  人民公园上池正街，回锅肉面</code></pre>
 <p>　　台北：</p>
 <pre><code>桃园街15号牛肉面</code></pre>
 <p>　　新疆</p>
-<pre><code>托克逊；奇台；阿图什</code></pre>
+<pre><code>托克逊，奇台；阿图什
+巴楚县，木沙江烤肉  过油肉拌面，烤肉串，烤肝子，馕坑肉48
+喀什，手抓饭 花苑小区，麦麦提沙吾提师傅的儿子抓饭店，手抓饭可以加</code></pre>
 <p>　　内蒙，呼伦贝尔市，海拉尔区</p>
 <p>　　江苏，扬州</p>
 <pre><code>高邮，阳春面　江苏省高邮市府前街陈小五小吃部</code></pre>
+<p>　　北京</p>
+<pre><code>双发盛酒家，首经贸站东北口 炸酱面，焦溜丸子，火爆腰花
+方砖厂，炸酱面</code></pre>
+<p>　　长沙</p>
+<pre><code>清泉阁包子铺，中山路319号 烧麦，包子
+老头子糖油粑粑</code></pre>
 
       
     </div>
@@ -538,7 +823,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-27 00:49:01" itemprop="dateModified" datetime="2020-09-27T00:49:01+09:00">2020-09-27</time>
+                <time title="修改时间：2020-12-31 04:29:13" itemprop="dateModified" datetime="2020-12-31T04:29:13+09:00">2020-12-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -722,18 +1007,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -760,7 +1045,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -770,13 +1055,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">3k</span>
+    <span title="站点总字数">5k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">3 分钟</span>
+    <span title="站点阅读时长">5 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
