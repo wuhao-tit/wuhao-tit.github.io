@@ -149,6 +149,575 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wuhao-tit.github.io/2021/02/25/python%E7%88%AC%E8%99%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="WuHao">
+      <meta itemprop="description" content="Jediism">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WuHao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/25/python%E7%88%AC%E8%99%AB/" class="post-title-link" itemprop="url">python爬虫</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-25 15:24:42" itemprop="dateCreated datePublished" datetime="2021-02-25T15:24:42+09:00">2021-02-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-28 16:35:41" itemprop="dateModified" datetime="2021-02-28T16:35:41+09:00">2021-02-28</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Requests 库</p>
+<p>robots.txt 网络爬虫排除标准    </p>
+<pre><code>爬虫协议： http:// robots.txt
+实例1.京东商品页面的爬取
+
+
+实例2.亚马逊商品页面爬取
+
+import requests
+url = &quot;https://item.jd.com/100012545852.html&quot;
+ try:
+     # 更改头部信息
+     kv = &#123;&#39;user-agent&#39;: &#39;Mozilla/5.0&#39;&#125;
+    r = requests.get(url, headers=kv)
+    r.raise_for_status()
+    r.encoding = r.apparent_encoding
+    # print(r.request.headers)
+    print(r.text[:1000])
+except:
+    print(&quot;爬取失败&quot;)
+
+实例3.百度，360搜索关键字提交
+
+import requests
+ url = &quot;https://www.baidu.com/s&quot;
+ keyword = &quot;Python&quot;  #中文也没问题
+ try:
+     kv = &#123;&#39;wd&#39;: &#39;keyword&#39;&#125;
+    r = requests.get(url, params=kv)
+    # https://www.baidu.com/s?wd=Python
+    print(r.request.url)
+    r.raise_for_status()  # 1469
+    r.encoding = r.apparent_encoding
+    print(len(r.text))  #
+    print(r.text)
+except:
+    print(&quot;爬取失败&quot;)
+
+实例4.图片的爬取和抓取
+
+import requests
+import os 
+url = &quot;http://&quot;
+root = &quot;D://pics//&quot;
+path = root+url.split(&#39;/&#39;)[-1] #原来的名字储存在本地
+try:
+if not os.path.exists(root): #根目录是否存在
+    os.mkdir(root)
+if not os.path.exists(path):
+    r = requests.get(url)
+    with open(path,&#39;wb&#39;) as f:
+        f.write(r.content)
+        f.close()
+        print(&quot;文件保存成功&quot;)
+else:
+    print(&quot;文件已经村在&quot;)
+except:
+print(&quot;爬取失败&quot;)
+
+实例5. IP地址归属地查询
+import requests
+#url = &quot;http://m.ip138.com/ip.asp?ip=&quot;
+url = &quot;https://www.ip138.com/iplookup.asp?ip=&quot;
+try:
+    kv = &#123;&#39;user-agent&#39;: &#39;Mozilla/5.0&#39;&#125;
+    r = requests.get(url + &#39;IP地址&#39; + &#39;&amp;action=2&#39;,headers=kv)
+    print(r.status_code)
+    r.encoding = r.apparent_encoding
+    # 返回最后500字节
+    #print(r.text[-500:])
+    print(r.text[:2000])
+except:
+    print(&quot;爬取失败&quot;)
+
+
+实例6.多线程对视频爬取
+
+&quot;&quot;&quot;使用多线程爬取梨视频视频数据&quot;&quot;&quot;
+&quot;&quot;&quot;https://www.cnblogs.com/zivli/p/11614103.html&quot;&quot;&quot;
+
+import requests
+ import re
+ from lxml import etree
+ from multiprocessing.dummy import Pool    
+
+url = &#39;https://www.pearvideo.com/category_5&#39;
+page_text = requests.get(url=url).text
+
+tree = etree.HTML(page_text)
+# 1、获取页面中视频详情地址
+li_list = tree.xpath(&#39;//ul[@id=&quot;listvideoListUl&quot;]/li&#39;)
+url_list = []
+for i in li_list:
+    # 2、构造出每个视频的详情地址
+    detail_url = &quot;https://www.pearvideo.com/&quot; + i.xpath(&#39;./div/a/@href&#39;)[0]
+    name = i.xpath(&#39;./div/a/div[2]/text()&#39;)[0] + &#39;.mp4&#39;
+    # 3、向视频详情地址发起请求
+    detail_page = requests.get(url=detail_url).text
+    # 4、从response中解析出视频的真实地址
+    ex = &#39;srcUrl=&quot;(.*?)&quot;,vdoUrl&#39;
+    video_url = re.findall(ex, detail_page)[0]
+    dic = &#123;
+        &#39;name&#39;: name,
+        &#39;url&#39;: video_url
+    &#125;
+    url_list.append(dic)
+
+def get_video_data(d):
+    &quot;&quot;&quot;
+    向视频地址发起请求，二进制写入本地文件
+    :param d:
+    :return:
+    &quot;&quot;&quot;
+    url = d[&#39;url&#39;]
+    data = requests.get(url=url).content
+    print(d[&#39;name&#39;], &quot;正在下载。。。&quot;)
+    with open(d[&#39;name&#39;], &#39;wb&#39;) as f:
+        f.write(data)
+        print(d[&#39;name&#39;], &quot;下载成功。。。&quot;)
+
+# 使用多进程处理
+pool = Pool(4)
+pool.map(get_video_data, url_list)
+pool.close()
+pool.join()</code></pre>
+<p>BeautifulSoup库</p>
+<p><img src="https://raw.githubusercontent.com/wuhao-tit/BlogPicbed/master/pythonscrapy/PS.1.png"></p>
+<p><img src="https://raw.githubusercontent.com/wuhao-tit/BlogPicbed/master/pythonscrapy/PS.2.png"></p>
+<p><img src="https://raw.githubusercontent.com/wuhao-tit/BlogPicbed/master/pythonscrapy/PS.3.png"></p>
+<pre><code>from bs4 import BeautifulSoup
+soup = BeautifulSoup(&#39;&lt;p&gt;data&lt;/p&gt;&#39;,&#39;html.parser&#39;)
+
+&quot;&quot;&quot;Beautiful Soup库的基本元素&quot;&quot;&quot;
+
+import requests
+from bs4 import BeautifulSoup
+
+url = &quot;https://python123.io/ws/demo.html&quot;
+r = requests.get(url)
+demo = r.text
+soup = BeautifulSoup(demo, &quot;html.parser&quot;)
+#print(soup.prettify())
+
+# &lt;title&gt;This is a python demo page&lt;/title&gt;
+print(soup.title)
+
+tag = soup.a
+# &lt;a class=&quot;py1&quot; href=&quot;http://www.icourse163.org/course/BIT-268001&quot; id=&quot;link1&quot;&gt;Basic Python&lt;/a&gt;
+print(tag)
+# a
+print(soup.a.name)
+# p
+print(soup.a.parent.name)
+# body
+print(soup.a.parent.parent.name)
+# html
+print(soup.a.parent.parent.parent.name)
+# [document]
+print(soup.a.parent.parent.parent.parent.name)
+# &#123;&#39;href&#39;: &#39;http://www.icourse163.org/course/BIT-268001&#39;, &#39;class&#39;: [&#39;py1&#39;], &#39;id&#39;: &#39;link1&#39;&#125;
+print(tag.attrs)
+# [&#39;py1&#39;]
+print(tag.attrs[&#39;class&#39;])
+# http://www.icourse163.org/course/BIT-268001
+print(tag.attrs[&#39;href&#39;])
+# &lt;class &#39;dict&#39;&gt;
+print(type(tag.attrs))
+# &lt;class &#39;bs4.element.Tag&#39;&gt;
+print(type(tag))
+
+# Basic Python
+print(soup.a.string)
+# &lt;p class=&quot;title&quot;&gt;&lt;b&gt;The demo python introduces several python courses.&lt;/b&gt;&lt;/p&gt;
+print(soup.p)
+# The demo python introduces several python courses.
+print(soup.p.string)
+# &lt;class &#39;bs4.element.NavigableString&#39;&gt;
+print(type(soup.p.string))
+
+基于bs4库的HTML内容遍历方法
+根据树形结构，有三种遍历方式：上行，下行和平行
+下行：.contents 列表类型
+.children    循环类型
+.decendants    
+
+上行：.parent
+:.parents
+
+for parent in soup.a.parents:
+    if parent is None:
+        print(parent)
+    else:
+        print(parent.name)
+
+平行:.next_sibling
+.previous_sibling
+.next_siblings
+.previous_siblings
+
+基于bs4库的html格式化
+.prettify()
+#bs4库使用utf-8编码方式与Python3.X匹配</code></pre>
+<p>信息的标记</p>
+<pre><code>HTML,XML,一对标签
+JSON 有类型的键值对构成的表达形式
+YAML 无类型键值对 key:value
+import requests
+from bs4 import BeautifulSoup
+
+url = &quot;https://python123.io/ws/demo.html&quot;
+r = requests.get(url)
+demo = r.text
+soup = BeautifulSoup(demo, &quot;html.parser&quot;)
+for link in soup.find_all(&#39;a&#39;):
+print(link.get(&#39;href&#39;))
+# http://www.icourse163.org/course/BIT-268001
+# http://www.icourse163.org/course/BIT-1001870001
+
+基于bs4库的HTML内容查找方法</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wuhao-tit.github.io/2021/01/24/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="WuHao">
+      <meta itemprop="description" content="Jediism">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WuHao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/24/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">图像处理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-24 04:51:36 / 修改时间：04:59:13" itemprop="dateCreated datePublished" datetime="2021-01-24T04:51:36+09:00">2021-01-24</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>194</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <pre><code>Matlab 图像处理
+imread,imshow,imtool,imfill,形态学上腐蚀和膨胀imerode,imdilate,bwlabel------数硬币
+rgb2grey();
+[L, num]  = bwlabel(image);
+SE  = strel (&#39;disk&#39;,5);%控制半径
+image = imerode(image ,SE)
+
+
+encode
+        image1+image2
+
+decode</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wuhao-tit.github.io/2021/01/21/python%20grammer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="WuHao">
+      <meta itemprop="description" content="Jediism">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WuHao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/21/python%20grammer/" class="post-title-link" itemprop="url">grammer</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-21 19:27:40" itemprop="dateCreated datePublished" datetime="2021-01-21T19:27:40+09:00">2021-01-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-24 04:34:09" itemprop="dateModified" datetime="2021-01-24T04:34:09+09:00">2021-01-24</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>　　datetime模块</p>
+<pre><code>import datetime as d
+d.date() 处理日期(年月日)
+d.time() 处理事件(时分秒,毫秒)
+d.datetime() 处理日期+时间
+d.timedelta() 处理时段(时间间隔)
+d.date.today()  当前时间
+d.tatetime.now()
+修改日期格式：
+d.date.today().strftime(&#39;%Y-%m-%d %H:%M:%S&#39;)
+d.date.today().__format__(&#39;格式&#39;)
+d.datetime.isoformat()
+日期转换成时间戳
+timetuple 时间转换成struct_time格式
+d.date.today.timetuple() 
+time.mktime 返回用秒数来表示时间的浮点数
+d.date.fromtimestamp() 将时间戳转换成日期    
+timedelta() 方法
+eg:今天是今年的第几天：
+import datetime
+today = datetime.date.today().strftime(&#39;%Y%m%d&#39;)
+#today = today.__format__(&#39;%Y%m%d&#39;)# __format__ 和strftime()一样
+dt = datetime.datetime.strptime(today,&quot;%Y%m%d&quot;)
+start = today[:4])+&#39;0101&#39;
+start = datetime.datetime.strptime(start,&quot;%Y%m%d&quot;)
+print(int((dt-start).days)+1)
+
+
+对象持久化
+
+标准库模块
+pickle 任意python对象格式化后和解格式化
+dbm 实现一个可通过键访问的文件系统，以储存字节串
+shelve 按照键把pickle 处理后的对象存储到一个文件中
+d = shelve.open()
+d[key] =data    value = d[key] del d[key]
+d.close()
+
+文本文件基本读写
+
+文件打开
+f = open(filename[,mode[,buffering]])
+mode第一个字母，表示
+f：open()返回的文件对象
+mode:可选参数，打开模式和文件类型
+buffering:可选参数，打开模式和文件类型
+&#39;r&#39;-read,&#39;w&#39;-write,&#39;x&#39;-文件不存在情况下创建并写文件
+&#39;a&#39;-append,&#39;+&#39;-读写模式
+mode第二个字母是文件类型
+&#39;t&#39;-txt &#39;b&#39;-二进制文件
+
+
+面向对象(object oriented design)(OOP)
+
+类(class)定义的特殊方法 eg.座位(seat)
+对象(object) eg.1A号
+#class member,instance variable, method(function)
+
+class BankAccount:
+
+#Constructor
+def __init__(self,accountNumber,accountName):
+
+    self.accountNumber = accountNumber
+    self.accountName   = accountName
+    self.balance       = balance
+
+def deposit(self,amount):
+    self.balance = self.balance + amount
+
+def withdraw(self):
+    self.balance = self.balance - amount
+
+
+def __str__(self)
+    return &quot;(&#123;&#125;,&#123;&#125;)&quot;.format(self.accountName,self.balance)
+    return &quot;(&quot;+ self.accountName + &quot;, &quot; + str(self.balance) + &quot;)&quot;
+
+def __lt__(self,other)
+    return self.balance &lt; other.balance
+def __gt__(self,other)
+    return self.balance &gt; other.balance
+
+new
+from ... import BankAccount
+
+b1.withdraw(100.0)
+b2.deposit(50.0)
+
+b1 = BankAcount(&quot;56789&quot;,&quot;Tony&quot;,500.0)
+b2 = BankAcount(&quot;12345&quot;,&quot;Jerry&quot;,100.0)
+
+
+print( b1 )
+print( b1 )
+
+
+
+
+
+
+算术运算
+__add__(self,other),__sub__,__mul__,__div__
+反运算
+当左操作数不支持相应的操作时被调用
+__radd__(self,other),__rsub__,__rmul__,__rdiv__
+
+自定义对象的排序
+
+列表方法sort()</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://wuhao-tit.github.io/2020/12/31/CAE%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%EF%BC%9A%E5%8A%9B%E5%AD%A6%E6%B1%87%E6%80%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -180,7 +749,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-01 13:29:27" itemprop="dateModified" datetime="2021-01-01T13:29:27+09:00">2021-01-01</time>
+                <time title="修改时间：2021-01-06 03:27:44" itemprop="dateModified" datetime="2021-01-06T03:27:44+09:00">2021-01-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -188,15 +757,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%90%E6%96%99%E5%8A%9B%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">材料力学</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%90%E6%96%99%E5%8A%9B%E5%AD%A6/%E7%90%86%E8%AE%BA%E5%8A%9B%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">理论力学</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%90%E6%96%99%E5%8A%9B%E5%AD%A6/%E7%90%86%E8%AE%BA%E5%8A%9B%E5%AD%A6/%E5%BC%B9%E6%80%A7%E5%8A%9B%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">弹性力学</span></a>
+                  <a href="/categories/%E5%8A%9B%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">力学</span></a>
                 </span>
             </span>
 
@@ -713,7 +1274,7 @@ FR=0,Mo=0
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-01 00:50:43" itemprop="dateModified" datetime="2021-01-01T00:50:43+09:00">2021-01-01</time>
+                <time title="修改时间：2021-03-22 16:12:22" itemprop="dateModified" datetime="2021-03-22T16:12:22+09:00">2021-03-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -721,7 +1282,7 @@ FR=0,Mo=0
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%80%81%E9%A5%95/" itemprop="url" rel="index"><span itemprop="name">老饕</span></a>
+                  <a href="/categories/%E8%80%81%E9%A5%95%E8%BF%87%E5%A4%84/" itemprop="url" rel="index"><span itemprop="name">老饕过处</span></a>
                 </span>
             </span>
 
@@ -731,7 +1292,7 @@ FR=0,Mo=0
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>273</span>
+              <span>438</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -751,7 +1312,13 @@ FR=0,Mo=0
 
       
           <p>　　東京</p>
-<p>　　</p>
+<p>　　台北：</p>
+<pre><code>富霸王猪脚 地址：南京东路二段115巷20号
+穆记牛肉面 地址：台湾台北市信义区吴兴街239号 牛肉饼
+ZAKUZAKU棒棒泡芙 地址：台北信义新天地 A11馆一楼 卡士达酱
+RAPL澎派令果 地址：台北市松高路12号 新光三越信义A8 1F
+路地 氷の怪物 地址：大安區市民大道四段10號
+吴宝春麦方店 地址：台北市信义区菸厂路88号B2 酒酿桂圆和荔枝玫瑰</code></pre>
 <p>　　成都：</p>
 <pre><code>洞子口陈凉粉  洞子口福德路42号，经典川菜基本上都可以，凉拌鸡，锅巴肉片，肝腰合炒
 
@@ -1007,18 +1574,18 @@ FR=0,Mo=0
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1055,13 +1622,13 @@ FR=0,Mo=0
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">5k</span>
+    <span title="站点总字数">13k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5 分钟</span>
+    <span title="站点阅读时长">11 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
